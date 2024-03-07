@@ -1,7 +1,5 @@
 package com.davidgayer.junior.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import com.davidgayer.junior.service.ClubService;
 
 import com.davidgayer.junior.dto.ClubDto;
@@ -10,11 +8,12 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class ClubController {
 
