@@ -1,5 +1,6 @@
 package com.davidgayer.junior.service;
 
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +24,12 @@ public class ClubServiceImpl implements ClubService {
         return clubs.stream().map((club) -> mapToClubDto(club)).collect(Collectors.toList()); 
     }
 
+    @SuppressWarnings("null")
+    @Override
+    public Club saveNewClub(ClubDto clubDto) {
+        return clubRepository.save(mapToClub(clubDto));
+    }
+
     private ClubDto mapToClubDto(Club club) {
         ClubDto clubDto = ClubDto.builder()
         .id(club.getId())
@@ -33,6 +40,18 @@ public class ClubServiceImpl implements ClubService {
         .updatedOn(club.getUpdatedOn())
         .build();
         return clubDto;
+    }
+
+    private Club mapToClub(ClubDto clubDto) {
+        Club club = Club.builder()
+        .id(clubDto.getId())
+        .title(clubDto.getTitle())
+        .content(clubDto.getContent())
+        .imageUrl(clubDto.getImageUrl())
+        .createdOn(clubDto.getCreatedOn())
+        .updatedOn(clubDto.getUpdatedOn())
+        .build();
+        return club;
     }
     
 }
