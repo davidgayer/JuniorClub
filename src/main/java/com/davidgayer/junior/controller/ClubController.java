@@ -11,8 +11,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 @Controller
 @RequiredArgsConstructor
@@ -31,11 +32,13 @@ public class ClubController {
     @GetMapping("/new")
     public String createClubForm(Model model) {
         ClubDto clubDto = new ClubDto();
-        model.addAttribute("club", clubDto);
+        model.addAttribute("newClub", clubDto);
         return "clubs-create";
-
     }
-    
 
-    
+    @PostMapping("/saveClub")
+    public String saveClub(@ModelAttribute("newClub") ClubDto clubDto) {
+        clubService.saveNewClub(clubDto);
+        return "success";
+    }
 }
