@@ -1,6 +1,5 @@
 package com.davidgayer.junior.service;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<ClubDto> findAllClubs() {
         List<Club> clubs = clubRepository.findAll();
-        return clubs.stream().map((club) -> mapToClubDto(club)).collect(Collectors.toList()); 
+        return clubs.stream().map((club) -> mapToClubDto(club)).collect(Collectors.toList());
     }
 
     @SuppressWarnings("null")
@@ -30,28 +29,36 @@ public class ClubServiceImpl implements ClubService {
         return clubRepository.save(mapToClub(clubDto));
     }
 
+    @SuppressWarnings("null")
+    @Override
+    public ClubDto findById(Long id) {
+        ClubDto clubDto = mapToClubDto(clubRepository.findById(id).get());
+        return clubDto;
+
+    }
+
     private ClubDto mapToClubDto(Club club) {
         ClubDto clubDto = ClubDto.builder()
-        .id(club.getId())
-        .title(club.getTitle())
-        .content(club.getContent())
-        .imageUrl(club.getImageUrl())
-        .createdOn(club.getCreatedOn())
-        .updatedOn(club.getUpdatedOn())
-        .build();
+                .id(club.getId())
+                .title(club.getTitle())
+                .content(club.getContent())
+                .imageUrl(club.getImageUrl())
+                .createdOn(club.getCreatedOn())
+                .updatedOn(club.getUpdatedOn())
+                .build();
         return clubDto;
     }
 
     private Club mapToClub(ClubDto clubDto) {
         Club club = Club.builder()
-        .id(clubDto.getId())
-        .title(clubDto.getTitle())
-        .content(clubDto.getContent())
-        .imageUrl(clubDto.getImageUrl())
-        .createdOn(clubDto.getCreatedOn())
-        .updatedOn(clubDto.getUpdatedOn())
-        .build();
+                .id(clubDto.getId())
+                .title(clubDto.getTitle())
+                .content(clubDto.getContent())
+                .imageUrl(clubDto.getImageUrl())
+                .createdOn(clubDto.getCreatedOn())
+                .updatedOn(clubDto.getUpdatedOn())
+                .build();
         return club;
     }
-    
+
 }

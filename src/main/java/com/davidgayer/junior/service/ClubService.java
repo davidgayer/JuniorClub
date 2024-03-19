@@ -8,6 +8,7 @@ import com.davidgayer.junior.model.Club;
 
 public interface ClubService {
     List<ClubDto> findAllClubs();
+    ClubDto findById(Long id);
     Club saveNewClub(ClubDto clubDto);    
 }
 
