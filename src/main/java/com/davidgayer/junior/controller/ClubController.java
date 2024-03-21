@@ -30,8 +30,8 @@ public class ClubController {
 
     @GetMapping()
     public String ListOfClubs(Model model) {
-        List<ClubDto> clubs = clubService.findAllClubs();
-        model.addAttribute("clubs", clubs);
+        List<ClubDto> clubsDto = clubService.findAllClubs();
+        model.addAttribute("clubs", clubsDto);
         return "clubs-list";
     }
 
@@ -43,10 +43,10 @@ public class ClubController {
     }
 
     @GetMapping("/search")
-    public String searchClub(@RequestParam String query, Model model) {
+    public String searchClub(@RequestParam("query") String query, Model model) {
         List<ClubDto> clubsDto = clubService.searchClub(query);
-        model.addAttribute("club", clubsDto);
-        return "clubs-detail";
+        model.addAttribute("clubs", clubsDto);
+        return "clubs-list";
     }
 
     @GetMapping("/new")
