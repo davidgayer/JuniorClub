@@ -48,7 +48,7 @@ public class ClubServiceImpl implements ClubService {
     }
 
     public List<ClubDto> searchClub(String query) {
-        List<Club> clubs = clubRepository.searchClub(query);
+        List<Club> clubs = clubRepository.searchClubs(query);
         return clubs.stream().map((club) -> mapToClubDto(club)).collect(Collectors.toList());
     }
 
