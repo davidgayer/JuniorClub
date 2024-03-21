@@ -9,7 +9,10 @@ import com.davidgayer.junior.model.Club;
 public interface ClubService {
     List<ClubDto> findAllClubs();
     ClubDto findById(Long id);
-    Club saveNewClub(ClubDto clubDto);    
+    Club saveNewClub(ClubDto clubDto);  
+    Club saveEditedClub(ClubDto clubDto);  
+    void deleteById(Long id);
+    List<ClubDto> searchClub(String query);
 }
 
 
