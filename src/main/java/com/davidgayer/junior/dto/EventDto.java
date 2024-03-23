@@ -7,21 +7,21 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import com.davidgayer.junior.model.Club;
 
-import groovy.transform.builder.Builder;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 public class EventDto {
 
-    private Long Id;
+    private Long id;
 
     @NotBlank(message="Title cannot be empty.")
     private String title;
@@ -34,6 +34,8 @@ public class EventDto {
 
     @NotBlank(message="Title cannot be empty.")
     private String content;
+
+    private String imageUrl;
 
     @CreationTimestamp
     private LocalDateTime createdOn;
