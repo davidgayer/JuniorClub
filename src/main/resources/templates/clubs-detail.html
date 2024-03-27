@@ -25,12 +25,11 @@
                         <div class="card mb-4">
                             <a href="#!"><img class="card-img-top" th:src="${club.imageUrl}" alt="..." /></a>
                             <div class="card-body">
-                                <div class="small text-muted" th:text="${club.createdOn}"></div>
                                 <h2 class="card-title" th:text="About + ' ' + ${club.title}"></h2>
                                 <p class="card-text" th:text="${club.content}"></p>
-                                <a class="btn btn-primary" th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit</a>
+                                <a class="btn btn-primary" th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit Club</a>
                                 <a class="btn btn-primary"
-                                    th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Delete</a>
+                                    th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Delete Club</a>
                                 <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}">Create
                                     event</a>
 
@@ -42,9 +41,9 @@
                             <div th:each="event, iterStat : ${clubEvents}" class="col-md-6 mb-4">
                                 <!-- Events-->
                                 <div class="card mb-4">
-                                    <a href="#!"><img class="card-img-events" th:src="${event.imageUrl}" alt="..." /></a>
+                                    <a href="#!"><img class="card-img-events-in-club-detail" th:src="${event.imageUrl}" alt="..." /></a>
                                     <div class="card-body">
-                                        <div class="small text-muted" th:text="${event.startTime}">Starts at</div>
+                                        <div class="small text-muted" th:text="${#temporals.format(event.startTime, 'dd/MM/yyyy, HH:mm')}">Starts at</div>
                                         <h2 class="card-title h4" th:text="${event.name}">Event Name</h2>
                                         <p class="card-text" th:text="${event.location}">Location</p>
                                         <a class="btn btn-primary" href="#!">Read more →</a>
