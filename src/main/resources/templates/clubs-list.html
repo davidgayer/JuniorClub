@@ -17,11 +17,13 @@
                 <div class="row gx-5">
                     <div>
                         <form th:action="@{/clubs/search}" class="form-inline my-2 my-lg-0 mb3">
-                            <input name="query" class="form-control mr-sm-2 mb-5" type="search" placeholder="Search club" aria-label="Search">
+                            <input name="query" class="form-control mr-sm-2 mb-5" type="search"
+                                placeholder="Search club" aria-label="Search">
                         </form>
                     </div>
                     <div th:each="club: ${clubs}" class="col-lg-6 mb-2">
-                        <a th:href="@{/clubs/{clubId}/detail(clubId=${club.id})}" class="btn border border-success border-opacity-10" >
+                        <a th:href="@{/clubs/{clubId}/detail(clubId=${club.id})}"
+                            class="btn border border-success border-opacity-10 ">
                             <div class="position-relative mb-3">
                                 <img class="img-fluid rounded-3 mb-3" th:src="${club.imageUrl}" alt="..." />
                                 <div th:text="${club.title}"
