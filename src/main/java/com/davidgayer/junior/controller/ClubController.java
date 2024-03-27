@@ -1,10 +1,12 @@
 package com.davidgayer.junior.controller;
 
 import com.davidgayer.junior.service.ClubService;
+import com.davidgayer.junior.service.EventService;
 
 import jakarta.validation.Valid;
 
 import com.davidgayer.junior.dto.ClubDto;
+import com.davidgayer.junior.dto.EventDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,9 +29,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ClubController {
 
     private final ClubService clubService;
+    private final EventService eventService;
 
     @GetMapping()
-    public String ListOfClubs(Model model) {
+    public String listOfClubs(Model model) {
         List<ClubDto> clubsDto = clubService.findAllClubs();
         model.addAttribute("clubs", clubsDto);
         return "clubs-list";
@@ -38,7 +41,9 @@ public class ClubController {
     @GetMapping("/{clubId}/detail")
     public String clubDetail(@PathVariable("clubId") Long clubId, Model model) {
         ClubDto clubDto = clubService.findById(clubId);
+        List<EventDto> clubEvents = eventService.getEventsByClubId(clubId);
         model.addAttribute("club", clubDto);
+        model.addAttribute("clubEvents", clubEvents);
         return "clubs-detail";
     }
 
