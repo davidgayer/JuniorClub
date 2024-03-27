@@ -29,15 +29,19 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String title;
+    private String name;
 
     private String location;
 
     private String hostEmail;
 
-    private String content;
+    private String description;
 
     private String imageUrl;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
 
     @CreationTimestamp
     private LocalDateTime createdOn;

@@ -2,13 +2,9 @@ package com.davidgayer.junior.dto;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import com.davidgayer.junior.model.Club;
-
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,28 +19,29 @@ public class EventDto {
 
     private Long id;
 
-    @NotBlank(message="Title cannot be empty.")
-    private String title;
+    @NotBlank(message="Name cannot be empty.")
+    private String name;
 
     @NotBlank(message="Location cannot be empty.")
     private String location;
 
-    @NotBlank(message="Title cannot be empty.")
+    @NotBlank(message="Host email cannot be empty.")
+    @Email(message = "Email must have correct format.")
     private String hostEmail;
 
-    @NotBlank(message="Title cannot be empty.")
-    private String content;
+    @NotBlank(message="description cannot be empty.")
+    private String description;
 
+    @NotBlank(message="Image URL cannot be empty.")
     private String imageUrl;
 
-    @CreationTimestamp
+    @DateTimeFormat(pattern = "dd.MM.yyyy, HH:mm")
+    private LocalDateTime startTime;
+
+    @DateTimeFormat(pattern = "dd.MM.yyyy, HH:mm")
+    private LocalDateTime endTime;
+
     private LocalDateTime createdOn;
 
-    @UpdateTimestamp
     private LocalDateTime updatedOn;
-
-    @ManyToOne
-    @JoinColumn(name = "club_id", nullable = false)
-    private Club club;
-
 }
