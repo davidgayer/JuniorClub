@@ -19,9 +19,9 @@
             <!-- Page content-->
             <div class="container ">
                 <div class="row d-flex justify-content-center align-items-center text-center">
-                    <!-- Blog entries-->
+                    <!-- Club detail-->
                     <div class="col-lg-8">
-                        <!-- Featured blog post-->
+                        <!-- Club detail-->
                         <div class="card mb-4">
                             <a href="#!"><img class="card-img-top" th:src="${club.imageUrl}" alt="..." /></a>
                             <div class="card-body">
@@ -29,59 +29,24 @@
                                 <h2 class="card-title" th:text="About + ' ' + ${club.title}"></h2>
                                 <p class="card-text" th:text="${club.content}"></p>
                                 <a class="btn btn-primary" th:href="@{/clubs/{clubId}/edit(clubId=${club.id})}">Edit</a>
-                                <a class="btn btn-primary" th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Delete</a>
+                                <a class="btn btn-primary"
+                                    th:href="@{/clubs/{clubId}/delete(clubId=${club.id})}">Delete</a>
+                                <a class="btn btn-primary" th:href="@{/events/{clubId}/new(clubId=${club.id})}">Create
+                                    event</a>
+
+
                             </div>
                         </div>
-                        <!-- Nested row for non-featured blog posts-->
+                        <!-- Nested row for events-->
                         <div class="row">
-                            <div class="col-lg-6">
-                                <!-- Blog post-->
+                            <div th:each="event, iterStat : ${clubEvents}" class="col-md-6 mb-4">
+                                <!-- Events-->
                                 <div class="card mb-4">
-                                    <a href="#!"><img class="card-img-top"
-                                            src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                                    <a href="#!"><img class="card-img-events" th:src="${event.imageUrl}" alt="..." /></a>
                                     <div class="card-body">
-                                        <div class="small text-muted">January 1, 2023</div>
-                                        <h2 class="card-title h4">Event Title</h2>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            Reiciendis aliquid atque, nulla.</p>
-                                        <a class="btn btn-primary" href="#!">Read more →</a>
-                                    </div>
-                                </div>
-                                <!-- Blog post-->
-                                <div class="card mb-4">
-                                    <a href="#!"><img class="card-img-top"
-                                            src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                    <div class="card-body">
-                                        <div class="small text-muted">January 1, 2023</div>
-                                        <h2 class="card-title h4">Event Title</h2>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            Reiciendis aliquid atque, nulla.</p>
-                                        <a class="btn btn-primary" href="#!">Read more →</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <!-- Blog post-->
-                                <div class="card mb-4">
-                                    <a href="#!"><img class="card-img-top"
-                                            src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                    <div class="card-body">
-                                        <div class="small text-muted">January 1, 2023</div>
-                                        <h2 class="card-title h4">Event Title</h2>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            Reiciendis aliquid atque, nulla.</p>
-                                        <a class="btn btn-primary" href="#!">Read more →</a>
-                                    </div>
-                                </div>
-                                <!-- Blog post-->
-                                <div class="card mb-4">
-                                    <a href="#!"><img class="card-img-top"
-                                            src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                                    <div class="card-body">
-                                        <div class="small text-muted">January 1, 2023</div>
-                                        <h2 class="card-title h4">Event Title</h2>
-                                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                            Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
+                                        <div class="small text-muted" th:text="${event.startTime}">Starts at</div>
+                                        <h2 class="card-title h4" th:text="${event.name}">Event Name</h2>
+                                        <p class="card-text" th:text="${event.location}">Location</p>
                                         <a class="btn btn-primary" href="#!">Read more →</a>
                                     </div>
                                 </div>
