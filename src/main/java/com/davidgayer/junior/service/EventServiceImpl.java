@@ -6,7 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.davidgayer.junior.dto.EventDto;
+import com.davidgayer.junior.model.Club;
 import com.davidgayer.junior.model.Event;
+import com.davidgayer.junior.repository.ClubRepository;
 import com.davidgayer.junior.repository.EventRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -16,80 +18,58 @@ import lombok.RequiredArgsConstructor;
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
+    private final ClubRepository clubRepository;
+
+    @SuppressWarnings("null")
+    @Override
+    public void saveNewEvent(Long clubId, EventDto eventDto) {
+        Club club = clubRepository.findById(clubId).get();
+        Event event = mapToEvent(eventDto);
+        event.setClub(club);
+        eventRepository.save(event);
+    }
+
+    @Override
+    public List<EventDto> getEventsByClubId(Long clubId) {
+        List<Event> events = eventRepository.findAllByClubId(clubId);
+        return events.stream().map((event) -> mapToEventDto(event)).collect(Collectors.toList());
+    }
 
     @Override
     public List<EventDto> getAllEvents() {
         List<Event> events = eventRepository.findAll();
         return events.stream().map((event) -> mapToEventDto(event)).collect(Collectors.toList());
-
-    }
-
-    @Override
-    public List<EventDto> getAllClubsEvents(Long clubId) {
-        List<Event> events = eventRepository.findAllByClubId(clubId);
-        return events.stream().map((event) -> mapToEventDto(event)).collect(Collectors.toList());
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public EventDto findById(Long id) {
-        Event event = eventRepository.findById(id).get();
-        return mapToEventDto(event);
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public Event saveNewEvent(EventDto eventDto) {
-        return eventRepository.save(mapToEvent(eventDto));
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public Event saveEditedEvent(EventDto eventDto) {
-        return eventRepository.save(mapToEvent(eventDto));
-
-    }
-
-    @SuppressWarnings("null")
-    @Override
-    public void deleteById(Long id) {
-        eventRepository.deleteById(id);
-    }
-
-    @Override
-    public List<EventDto> searchEvent(String query) {
-        List<Event> events = eventRepository.searchEvents(query);
-        return events.stream().map((event) -> mapToEventDto(event)).collect(Collectors.toList());
-    }
-
-    private EventDto mapToEventDto(Event event) {
-        EventDto eventDto = EventDto.builder()
-                .id(event.getId())
-                .title(event.getTitle())
-                .location(event.getLocation())
-                .hostEmail(event.getHostEmail())
-                .content(event.getContent())
-                .imageUrl(event.getImageUrl())
-                .createdOn(event.getCreatedOn())
-                .updatedOn(event.getUpdatedOn())
-                .club(event.getClub())
-                .build();
-        return eventDto;
     }
 
     private Event mapToEvent(EventDto eventDto) {
         Event event = Event.builder()
                 .id(eventDto.getId())
-                .title(eventDto.getTitle())
+                .name(eventDto.getName())
                 .location(eventDto.getLocation())
                 .hostEmail(eventDto.getHostEmail())
-                .content(eventDto.getContent())
+                .description(eventDto.getDescription())
                 .imageUrl(eventDto.getImageUrl())
+                .startTime(eventDto.getStartTime())
+                .endTime(eventDto.getEndTime())
                 .createdOn(eventDto.getCreatedOn())
                 .updatedOn(eventDto.getUpdatedOn())
-                .club(eventDto.getClub())
                 .build();
         return event;
     }
 
+    private EventDto mapToEventDto(Event event) {
+        EventDto eventDto = EventDto.builder()
+                .id(event.getId())
+                .name(event.getName())
+                .location(event.getLocation())
+                .hostEmail(event.getHostEmail())
+                .description(event.getDescription())
+                .imageUrl(event.getImageUrl())
+                .startTime(event.getStartTime())
+                .endTime(event.getEndTime())
+                .createdOn(event.getCreatedOn())
+                .updatedOn(event.getUpdatedOn())
+                .build();
+        return eventDto;
+    }
 }
