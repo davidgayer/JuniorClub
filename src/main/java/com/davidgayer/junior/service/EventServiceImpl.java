@@ -41,6 +41,14 @@ public class EventServiceImpl implements EventService {
         return events.stream().map((event) -> mapToEventDto(event)).collect(Collectors.toList());
     }
 
+    @SuppressWarnings("null")
+    @Override
+    public EventDto getEventDetail(Long id) {
+        Event event = eventRepository.findById(id).get();
+        return mapToEventDto(event);
+
+    }
+
     private Event mapToEvent(EventDto eventDto) {
         Event event = Event.builder()
                 .id(eventDto.getId())

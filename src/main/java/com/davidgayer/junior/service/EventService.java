@@ -9,6 +9,7 @@ public interface EventService {
     void saveNewEvent(Long clubId, EventDto eventDto);
     List<EventDto> getEventsByClubId(Long clubId);
     List<EventDto> getAllEvents();
+    EventDto getEventDetail(Long id);
     
     
 }
