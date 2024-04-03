@@ -29,7 +29,7 @@ public class EventController {
         EventDto eventDto = new EventDto();
         model.addAttribute("clubId", clubId);
         model.addAttribute("event", eventDto);
-        return "events-create";
+        return "events/events-create";
     }
 
     @PostMapping("/{clubId}/saveEvent")
@@ -38,7 +38,7 @@ public class EventController {
             BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
-            return "events-create";
+            return "events/events-create";
         }
         eventService.saveNewEvent(clubId, eventDto);
         return "redirect:/clubs/" + clubId + "/detail";
@@ -49,7 +49,7 @@ public class EventController {
     public String listOfEvents(Model model) {
         List<EventDto> eventsDto = eventService.getAllEvents();
         model.addAttribute("events", eventsDto);
-        return "events-list";
+        return "events/events-list";
     }
 
 }

@@ -35,7 +35,7 @@ public class ClubController {
     public String listOfClubs(Model model) {
         List<ClubDto> clubsDto = clubService.findAllClubs();
         model.addAttribute("clubs", clubsDto);
-        return "clubs-list";
+        return "clubs/clubs-list";
     }
 
     @GetMapping("/{clubId}/detail")
@@ -44,28 +44,28 @@ public class ClubController {
         List<EventDto> clubEvents = eventService.getEventsByClubId(clubId);
         model.addAttribute("club", clubDto);
         model.addAttribute("clubEvents", clubEvents);
-        return "clubs-detail";
+        return "clubs/clubs-detail";
     }
 
     @GetMapping("/search")
     public String searchClub(@RequestParam("query") String query, Model model) {
         List<ClubDto> clubsDto = clubService.searchClub(query);
         model.addAttribute("clubs", clubsDto);
-        return "clubs-list";
+        return "clubs/clubs-list";
     }
 
     @GetMapping("/new")
     public String createClubForm(Model model) {
         ClubDto clubDto = new ClubDto();
         model.addAttribute("club", clubDto);
-        return "clubs-create";
+        return "clubs/clubs-create";
     }
 
     @PostMapping("/saveClub")
     public String saveClub(@Valid @ModelAttribute("club") ClubDto clubDto, 
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "clubs-create";
+            return "clubs/clubs-create";
         }
         clubService.saveNewClub(clubDto);
         return "redirect:/clubs";
@@ -75,7 +75,7 @@ public class ClubController {
     public String editClubForm(Model model, @PathVariable Long clubId) {
         ClubDto clubDto = clubService.findById(clubId);
         model.addAttribute("club", clubDto);
-        return "clubs-edit";
+        return "clubs/clubs-edit";
     }
 
     @PostMapping("/{clubId}/edit")
@@ -83,7 +83,7 @@ public class ClubController {
                                  @Valid @ModelAttribute("club") ClubDto clubDto,
                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "clubs-edit";
+            return "clubs/clubs-edit";
         }
         clubDto.setId(clubId);
         clubService.saveEditedClub(clubDto);
