@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.davidgayer.junior.model.Club;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -44,4 +46,6 @@ public class EventDto {
     private LocalDateTime createdOn;
 
     private LocalDateTime updatedOn;
+
+    private Club club;
 }
