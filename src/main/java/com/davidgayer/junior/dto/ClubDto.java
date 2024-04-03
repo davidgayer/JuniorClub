@@ -24,7 +24,7 @@ public class ClubDto {
     private String content;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
-    private List<Event> events;
+    private List<EventDto> events;
     
 }
 
