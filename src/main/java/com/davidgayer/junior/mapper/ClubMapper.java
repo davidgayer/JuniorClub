@@ -1,5 +1,7 @@
 package com.davidgayer.junior.mapper;
 
+import java.util.stream.Collectors;
+
 import com.davidgayer.junior.dto.ClubDto;
 import com.davidgayer.junior.model.Club;
 
@@ -13,6 +15,7 @@ public class ClubMapper {
                 .imageUrl(club.getImageUrl())
                 .createdOn(club.getCreatedOn())
                 .updatedOn(club.getUpdatedOn())
+                .events(club.getEvents().stream().map(event -> EventMapper.mapToEventDto(event)).collect(Collectors.toList()))
                 .build();
         return clubDto;
     }
@@ -25,6 +28,7 @@ public class ClubMapper {
                 .imageUrl(clubDto.getImageUrl())
                 .createdOn(clubDto.getCreatedOn())
                 .updatedOn(clubDto.getUpdatedOn())
+                .events(clubDto.getEvents().stream().map(eventDto -> EventMapper.mapToEvent(eventDto)).collect(Collectors.toList()))
                 .build();
         return club;
     }
