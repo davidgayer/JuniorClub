@@ -1,7 +1,6 @@
 package com.davidgayer.junior.controller;
 
 import com.davidgayer.junior.service.ClubService;
-import com.davidgayer.junior.service.EventService;
 
 import jakarta.validation.Valid;
 
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ClubController {
 
     private final ClubService clubService;
-    private final EventService eventService;
 
     @GetMapping()
     public String listOfClubs(Model model) {
@@ -40,8 +38,8 @@ public class ClubController {
 
     @GetMapping("/{clubId}/detail")
     public String clubDetail(@PathVariable("clubId") Long clubId, Model model) {
-        ClubDto clubDto = clubService.findById(clubId);
-        List<EventDto> clubEvents = eventService.getEventsByClubId(clubId);
+        ClubDto clubDto = clubService.getClubDetail(clubId);
+        List<EventDto> clubEvents = clubService.findAllClubEvents(clubId);
         model.addAttribute("club", clubDto);
         model.addAttribute("clubEvents", clubEvents);
         return "clubs/clubs-detail";
@@ -73,7 +71,7 @@ public class ClubController {
 
     @GetMapping("/{clubId}/edit")
     public String editClubForm(Model model, @PathVariable Long clubId) {
-        ClubDto clubDto = clubService.findById(clubId);
+        ClubDto clubDto = clubService.getClubDetail(clubId);
         model.addAttribute("club", clubDto);
         return "clubs/clubs-edit";
     }
@@ -92,7 +90,7 @@ public class ClubController {
 
     @GetMapping("/{clubId}/delete")
     public String deleteClub(@PathVariable Long clubId) {
-        clubService.deleteById(clubId);
+        clubService.deleteClubById(clubId);
         return "redirect:/clubs";
     }
     
