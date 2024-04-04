@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.davidgayer.junior.dto.ClubDto;
+import com.davidgayer.junior.dto.EventDto;
 import com.davidgayer.junior.mapper.ClubMapper;
 import com.davidgayer.junior.model.Club;
 import com.davidgayer.junior.repository.ClubRepository;
@@ -38,19 +39,27 @@ public class ClubServiceImpl implements ClubService {
 
     @SuppressWarnings("null")
     @Override
-    public ClubDto findById(Long id) {
+    public ClubDto getClubDetail(Long id) {
         ClubDto clubDto = ClubMapper.mapToClubDto(clubRepository.findById(id).get());
         return clubDto;
     }
 
     @SuppressWarnings("null")
-    public void deleteById(Long id) {
+    public void deleteClubById(Long id) {
         clubRepository.deleteById(id);
     }
 
     public List<ClubDto> searchClub(String query) {
         List<Club> clubs = clubRepository.searchClubs(query);
         return clubs.stream().map((club) -> ClubMapper.mapToClubDto(club)).collect(Collectors.toList());
+    }
+
+    @SuppressWarnings("null")
+    @Override
+    public List<EventDto> findAllClubEvents(Long clubId) {
+        ClubDto clubDto = ClubMapper.mapToClubDto(clubRepository.findById(clubId).get());
+        List<EventDto> eventsDto = clubDto.getEvents();
+        return eventsDto;
     }
 
 
