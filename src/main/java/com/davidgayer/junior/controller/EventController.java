@@ -42,7 +42,6 @@ public class EventController {
         }
         eventService.saveNewEvent(clubId, eventDto);
         return "redirect:/clubs/" + clubId + "/detail";
-
     }
 
     @GetMapping()
@@ -50,6 +49,13 @@ public class EventController {
         List<EventDto> eventsDto = eventService.getAllEvents();
         model.addAttribute("events", eventsDto);
         return "events/events-list";
+    }
+
+    @GetMapping("/{eventId}/detail")
+    public String eventDetail(@PathVariable("eventId") Long eventId, Model model) {
+        EventDto event = eventService.getEventDetail(eventId);
+        model.addAttribute("event", event);
+        return "events/events-detail";
     }
 
 }
