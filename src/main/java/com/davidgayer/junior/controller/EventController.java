@@ -16,6 +16,8 @@ import com.davidgayer.junior.service.EventService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +27,9 @@ public class EventController {
     private final EventService eventService;
 
     @GetMapping("/{clubId}/new")
-    public String createEventForm(@PathVariable("clubId") Long clubId, Model model) {
+    public String createEventForm(  @PathVariable("clubId") Long clubId, 
+                                    Model model) {
+                                        
         EventDto eventDto = new EventDto();
         model.addAttribute("clubId", clubId);
         model.addAttribute("event", eventDto);
@@ -33,10 +37,11 @@ public class EventController {
     }
 
     @PostMapping("/{clubId}/saveEvent")
-    public String saveNewEvent(@PathVariable("clubId") Long clubId,
-            @Valid @ModelAttribute("event") EventDto eventDto,
-            BindingResult bindingResult,
-            Model model) {
+    public String saveNewEvent( @PathVariable("clubId") Long clubId,
+                                @Valid @ModelAttribute("event") EventDto eventDto,
+                                BindingResult bindingResult,
+                                Model model) {
+
         if (bindingResult.hasErrors()) {
             return "events/events-create";
         }
@@ -46,16 +51,52 @@ public class EventController {
 
     @GetMapping()
     public String listOfEvents(Model model) {
+
         List<EventDto> eventsDto = eventService.getAllEvents();
         model.addAttribute("events", eventsDto);
         return "events/events-list";
     }
 
     @GetMapping("/{eventId}/detail")
-    public String eventDetail(@PathVariable("eventId") Long eventId, Model model) {
+    public String eventDetail(  @PathVariable("eventId") Long eventId, 
+                                Model model) {
+
         EventDto event = eventService.getEventDetail(eventId);
         model.addAttribute("event", event);
         return "events/events-detail";
     }
+
+    @GetMapping("/{eventId}/edit")
+    public String editEventForm(Model model, 
+                                @PathVariable Long eventId) {
+
+        EventDto eventDto = eventService.getEventDetail(eventId);
+        model.addAttribute("event", eventDto);
+        return "events/events-edit";
+    }
+
+    @PostMapping("/{eventId}/edit")
+    public String saveEditedEvent(  @PathVariable Long eventId,
+                                    @Valid @ModelAttribute("event") EventDto event,
+                                    BindingResult bindingResult, 
+                                    Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("event", event);
+            return "events/events-edit";
+        }
+        EventDto eventDto = eventService.getEventDetail(eventId);
+        event.setClub(eventDto.getClub());
+        event.setId(eventId);
+        eventService.saveEditedEvent(event);
+        return "redirect:/events";
+    }
+
+    @GetMapping("/{eventId}/delete")
+    public String deleteEvent(@PathVariable Long eventId) {
+        eventService.deleteEventById(eventId);
+        return "redirect:/events";
+    }
+    
 
 }

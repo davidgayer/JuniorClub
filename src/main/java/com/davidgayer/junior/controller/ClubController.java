@@ -61,8 +61,9 @@ public class ClubController {
 
     @PostMapping("/saveClub")
     public String saveClub(@Valid @ModelAttribute("club") ClubDto clubDto, 
-                           BindingResult bindingResult) {
+                           BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("club", clubDto);
             return "clubs/clubs-create";
         }
         clubService.saveNewClub(clubDto);
@@ -77,10 +78,11 @@ public class ClubController {
     }
 
     @PostMapping("/{clubId}/edit")
-    public String postMethodName(@PathVariable Long clubId, 
+    public String saveEditedClub(@PathVariable Long clubId, 
                                  @Valid @ModelAttribute("club") ClubDto clubDto,
-                                 BindingResult bindingResult) {
+                                 BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("club", clubDto);
             return "clubs/clubs-edit";
         }
         clubDto.setId(clubId);

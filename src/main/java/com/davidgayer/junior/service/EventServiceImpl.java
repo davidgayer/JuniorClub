@@ -1,6 +1,7 @@
 package com.davidgayer.junior.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -21,32 +22,48 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final ClubRepository clubRepository;
 
-    @SuppressWarnings("null")
     @Override
     public void saveNewEvent(Long clubId, EventDto eventDto) {
-        Club club = clubRepository.findById(clubId).get();
+        Optional<Club> clubOptional = clubRepository.findById(clubId);
+        if (!clubOptional.isPresent()) {
+            throw new IllegalArgumentException("Club not found with id: " + clubId);
+        }
+        Club club = clubOptional.get();
         Event event = EventMapper.mapToEvent(eventDto);
         event.setClub(club);
         eventRepository.save(event);
     }
 
     @Override
+    public Event saveEditedEvent(EventDto eventDto) {
+        Event event = EventMapper.mapToEvent(eventDto);
+        return eventRepository.save(event);
+    }
+
+    @Override
     public List<EventDto> getEventsByClubId(Long clubId) {
         List<Event> events = eventRepository.findAllByClubId(clubId);
-        return events.stream().map((event) -> EventMapper.mapToEventDto(event)).collect(Collectors.toList());
+        return events.stream().map(EventMapper::mapToEventDto).collect(Collectors.toList());
     }
 
     @Override
     public List<EventDto> getAllEvents() {
         List<Event> events = eventRepository.findAll();
-        return events.stream().map((event) -> EventMapper.mapToEventDto(event)).collect(Collectors.toList());
+        return events.stream().map(EventMapper::mapToEventDto).collect(Collectors.toList());
     }
 
-    @SuppressWarnings("null")
     @Override
     public EventDto getEventDetail(Long id) {
-        Event event = eventRepository.findById(id).get();
+        Optional<Event> eventOptional = eventRepository.findById(id);
+        if (!eventOptional.isPresent()) {
+            throw new IllegalArgumentException("Event not found with id: " + id);
+        }
+        Event event = eventOptional.get();
         return EventMapper.mapToEventDto(event);
+    }
 
+    @Override 
+    public void deleteEventById(Long eventId) {
+        eventRepository.deleteById(eventId);
     }
 }

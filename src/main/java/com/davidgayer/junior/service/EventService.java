@@ -3,6 +3,7 @@ package com.davidgayer.junior.service;
 import java.util.List;
 
 import com.davidgayer.junior.dto.EventDto;
+import com.davidgayer.junior.model.Event;
 
 public interface EventService {
     
@@ -10,6 +11,8 @@ public interface EventService {
     List<EventDto> getEventsByClubId(Long clubId);
     List<EventDto> getAllEvents();
     EventDto getEventDetail(Long id);
+    Event saveEditedEvent(EventDto eventDto);
+    void deleteEventById(Long eventId);
     
     
 }
