@@ -1,6 +1,7 @@
 package com.davidgayer.junior.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.validation.constraints.NotBlank;
@@ -24,7 +25,7 @@ public class ClubDto {
     private String content;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
-    private List<EventDto> events;
+    private List<EventDto> events = new ArrayList<>();
     
 }
 
