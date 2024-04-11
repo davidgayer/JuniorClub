@@ -37,14 +37,12 @@ public class ClubServiceImpl implements ClubService {
         return clubRepository.save(ClubMapper.mapToClub(clubDto));
     }
 
-    @SuppressWarnings("null")
     @Override
     public ClubDto getClubDetail(Long id) {
         ClubDto clubDto = ClubMapper.mapToClubDto(clubRepository.findById(id).get());
         return clubDto;
     }
 
-    @SuppressWarnings("null")
     public void deleteClubById(Long id) {
         clubRepository.deleteById(id);
     }
@@ -54,7 +52,6 @@ public class ClubServiceImpl implements ClubService {
         return clubs.stream().map((club) -> ClubMapper.mapToClubDto(club)).collect(Collectors.toList());
     }
 
-    @SuppressWarnings("null")
     @Override
     public List<EventDto> findAllClubEvents(Long clubId) {
         ClubDto clubDto = ClubMapper.mapToClubDto(clubRepository.findById(clubId).get());
