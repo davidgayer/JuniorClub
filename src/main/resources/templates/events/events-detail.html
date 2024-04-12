@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}">
+
+<head>
+    <title>Event Detail</title>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+        <section layout:fragment="body" class="py-5">
+            <header class="py-5 bg-light border-bottom mb-4">
+                <div class="container">
+                    <div class="text-center my-5">
+                        <h1 class="fw-bolder" th:text="${event.name}"></h1>
+                    </div>
+                </div>
+            </header>
+            <!-- Page content-->
+            <div class="container ">
+                <div class="row d-flex justify-content-center align-items-center text-center">
+                    <!-- Club detail-->
+                    <div class="col-lg-8">
+                        <!-- Club detail-->
+                        <div class="card mb-4">
+                            <a href="#!"><img class="card-img-top" th:src="${event.imageUrl}" alt="..." /></a>
+                            <div class="card-body">
+                                <h2 class="card-title" th:text="'About ' + ${event.name} + ':'"></h2>
+                                <p class="card-text" th:text="'Location: ' + ${event.location}"></p>
+                                <p class="card-text"  th:text="'Start time: '+ ${#temporals.format(event.startTime, 'dd/MM/yyyy, HH:mm')}"></p>
+                                <p class="card-text"  th:text="'End time: ' + ${#temporals.format(event.endTime, 'dd/MM/yyyy, HH:mm')}"></p>
+                                <p class="card-text" th:text="'Event description: '+ ${event.description}"></p>
+                                <p class="card-text" th:text="'Host email: ' + ${event.hostEmail}"></p>
+                                <a class="btn btn-primary" th:href="@{/events/{eventId}/edit(eventId=${event.id})}">Edit Event</a>
+                                <a class="btn btn-primary" th:href="@{/events/{eventId}/delete(eventId=${event.id})}">Delete Event</a>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>
