@@ -25,6 +25,7 @@ public class ClubDto {
     private String content;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
+    @Builder.Default
     private List<EventDto> events = new ArrayList<>();
     
 }
