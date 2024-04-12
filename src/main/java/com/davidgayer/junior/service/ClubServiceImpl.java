@@ -25,13 +25,11 @@ public class ClubServiceImpl implements ClubService {
         return clubs.stream().map((club) -> ClubMapper.mapToClubDto(club)).collect(Collectors.toList());
     }
 
-    @SuppressWarnings("null")
     @Override
     public Club saveNewClub(ClubDto clubDto) {
         return clubRepository.save(ClubMapper.mapToClub(clubDto));
     }
 
-    @SuppressWarnings("null")
     @Override
     public Club saveEditedClub(ClubDto clubDto) {
         return clubRepository.save(ClubMapper.mapToClub(clubDto));
