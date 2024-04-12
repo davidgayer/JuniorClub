@@ -53,7 +53,7 @@ public class AuthController {
         }
 
         userService.saveUser(user);
-        return "redirect:/";
+        return "redirect:/?success";
     }
     
 }
