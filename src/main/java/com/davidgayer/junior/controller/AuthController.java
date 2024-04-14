@@ -32,7 +32,7 @@ public class AuthController {
         return "register";
     }
 
-    @PostMapping("/saveUser")
+    @PostMapping("/register/save")
     public String saveUser(@Valid @ModelAttribute("user") RegistrationDto user, 
                            BindingResult bindingResult, Model model) {
 
@@ -40,11 +40,11 @@ public class AuthController {
         User existingUserUserName = userService.findByUsername(user.getUserName());
 
         if (existingUserEmail != null && existingUserEmail.getEmail() != null && !existingUserEmail.getEmail().isEmpty()) {
-            bindingResult.rejectValue("email", null, "User with this email is already registered");
+            return "redirect:/register?fail";
         }
 
         if (existingUserUserName != null && existingUserUserName.getUsername() != null && !existingUserUserName.getUsername().isEmpty()) {
-            bindingResult.rejectValue("userName", null, "This username is already taken.");
+            return "redirect:/register?fail";
         }
 
         if (bindingResult.hasErrors()) {
@@ -53,7 +53,7 @@ public class AuthController {
         }
 
         userService.saveUser(user);
-        return "redirect:/?success";
+        return "redirect:/?registerSuccess";
     }
     
 }
