@@ -1,15 +1,15 @@
 package com.davidgayer.junior.service;
 
 import com.davidgayer.junior.dto.RegistrationDto;
-import com.davidgayer.junior.model.User;
+import com.davidgayer.junior.model.UserEntity;
 
 public interface UserService {
 
     void saveUser(RegistrationDto registrationDto);
 
-    User findByEmail(String email);
+    UserEntity findByEmail(String email);
 
-    User findByUsername(String userName);
+    UserEntity findByUsername(String userName);
 
     
 

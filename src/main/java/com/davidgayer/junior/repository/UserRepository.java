@@ -3,12 +3,12 @@ package com.davidgayer.junior.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.davidgayer.junior.model.User;
+import com.davidgayer.junior.model.UserEntity;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    User findByEmail(String email);
+    UserEntity findByEmail(String email);
     
-    User findByUsername(String userName);   
+    UserEntity findByUsername(String userName);   
 }

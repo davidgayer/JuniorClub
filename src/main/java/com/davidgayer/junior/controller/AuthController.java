@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.davidgayer.junior.dto.RegistrationDto;
-import com.davidgayer.junior.model.User;
+import com.davidgayer.junior.model.UserEntity;
 import com.davidgayer.junior.service.UserService;
 
 import jakarta.validation.Valid;
@@ -36,8 +36,8 @@ public class AuthController {
     public String saveUser(@Valid @ModelAttribute("user") RegistrationDto user, 
                            BindingResult bindingResult, Model model) {
 
-        User existingUserEmail = userService.findByEmail(user.getEmail());
-        User existingUserUserName = userService.findByUsername(user.getUserName());
+        UserEntity existingUserEmail = userService.findByEmail(user.getEmail());
+        UserEntity existingUserUserName = userService.findByUsername(user.getUserName());
 
         if (existingUserEmail != null && existingUserEmail.getEmail() != null && !existingUserEmail.getEmail().isEmpty()) {
             return "redirect:/register?fail";

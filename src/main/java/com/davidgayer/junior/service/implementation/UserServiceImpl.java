@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.davidgayer.junior.dto.RegistrationDto;
 import com.davidgayer.junior.model.Role;
-import com.davidgayer.junior.model.User;
+import com.davidgayer.junior.model.UserEntity;
 import com.davidgayer.junior.repository.RoleRepository;
 import com.davidgayer.junior.repository.UserRepository;
 import com.davidgayer.junior.service.UserService;
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(RegistrationDto registrationDto) {
-        User user = new User();
+        UserEntity user = new UserEntity();
         user.setUsername(registrationDto.getUserName());
         user.setEmail(registrationDto.getEmail());
         user.setPassword(registrationDto.getPassword());
@@ -32,12 +32,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) {
+    public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public User findByUsername(String userName) {
+    public UserEntity findByUsername(String userName) {
         return userRepository.findByUsername(userName);
     }
     

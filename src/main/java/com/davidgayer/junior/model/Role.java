@@ -28,7 +28,7 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles") 
     @Builder.Default   
-    private List<User> users = new ArrayList<>();
+    private List<UserEntity> users = new ArrayList<>();
     
     
 }
