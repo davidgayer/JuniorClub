@@ -9,8 +9,11 @@
 <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
         <section layout:fragment="body" class="py-5">
+            <div th:if="${param.fail}" class="alert alert-danger">
+                Username or email already exists.
+            </div>
             <div class="container">
-                <form method="post" th:object="${user}" th:action="@{/saveUser}">
+                <form method="post" th:object="${user}" th:action="@{/register/save}">
                     <div class="form-row ">
                         <div class="form-group col-md-6">
                             <label for="inputuserName">Username</label>
@@ -31,8 +34,7 @@
                             placeholder="Password">
                         <p class="text-danger" th:errors="*{password}"></p>
                     </div>
-                    <button type="submit"
-                        class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
                 </form>
             </div>
 
